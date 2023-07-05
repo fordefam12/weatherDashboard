@@ -45,7 +45,19 @@ $(document).ready(function () {
     $.ajax({
         method: "GET",
     }).then(function(response){
-        
-    })
+
+        coords.push(response.coord.lat);
+        coords.push(response.coord.lon);
+
+        var cityName =response.name;
+        var cityCond = response.weather[0].description.toUpperCase();
+        var cityTemp = response.main.temp;
+        var CityHum = response.wind.speed;
+        var icon = reponse.weather [0].icon;
+
+        $(".cityName").html(cityName + "" + "(" + now + ")");
+        $(".cityCond").text("Current Conditions: " + cityCond);
+        $(".temp").text("Current Temp (F): " + cityTemp.toFixed(1));
+        $(".humidity").text
   }
 });
