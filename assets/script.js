@@ -58,6 +58,14 @@ $(document).ready(function () {
         $(".cityName").html(cityName + "" + "(" + now + ")");
         $(".cityCond").text("Current Conditions: " + cityCond);
         $(".temp").text("Current Temp (F): " + cityTemp.toFixed(1));
-        $(".humidity").text
+        $(".humidity").text("humidity: " + CityHum + "%");
+        $(".windSpeed").text("wind speed: " + cityWind +"mph");
+        $("#date1").text(day1);
+        $("#date1").text(day1);
+        $("#date1").text(day1);
+        $("#date1").text(day1);
+        $("#date1").text(day1);
+        $("#date1").text(day1);
+
   }
 });
