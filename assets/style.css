@@ -1,3 +1,62 @@
 * {
     background-color: rgb(151, 151, 151);
 }
+
+.infoSection {
+padding: 1px;
+border: 1px solid red;
+}
+
+.weather-data {
+    background-color: blue;
+    border: 1px solid red;
+}
+
+.current-city-data {
+    min-height: 300px;
+    border: 1px solid red;
+}
+
+.table-box {
+    background-color: aqua;
+    border-radius: 10px;
+    border: 1px solid red;
+}
+
+tr {
+    margin: 5px;
+    border: 1px solid red;
+}
+
+.card {
+    background-color: blueviolet;
+    margin: 3px;
+    min-height: 300px;
+    border: 1px solid red;
+}
+
+.hero {
+    background: #632700b4;
+    border: 1px solid red;
+}
+.title {
+    color: azure;
+    border: 1px solid red;
+}
+
+.submit {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid red;
+}
+
+@media only screen and (max-width: 599px) {
+    .column {
+        margin: 2px;
+        padding: 0 20px 0 20px;
+    }
+    .cardConetent {
+        padding: 20px;
+        border: 1px solid red;
+    }
+}
