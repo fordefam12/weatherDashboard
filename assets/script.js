@@ -10,12 +10,12 @@ $(document).ready(function () {
   var cities;
 
   function MostRecent() {
-    var lastSearch = localStorage.getItem("mosrRecent");
+    var lastSearch = localStorage.getItem("mostRecent");
     if (lastSearch) {
       city = lastSearch;
       search();
     } else {
-      city = "seatle";
+      city = "Seatle";
       search();
     }
   }
@@ -35,10 +35,10 @@ $(document).ready(function () {
     e.preventDefault();
     getCity();
     search();
-    $("cityInput").val("");
+    $(".cityInput").val("");
     listCities();
 
-  })
+  });
   function search() {
     var url= "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial&appid=4910a1ed2efe6e5a111856cd7c08b4de";
     var coords =[];
@@ -68,7 +68,7 @@ $(document).ready(function () {
         
         getUV(response.coord.lat, response.coord.lon);
     }).fail(funtion () {
-        alert("could not find data ");
+        alert= ('could not find data')
     });
     function getUV(lat, lon) {
         $.ajax({
@@ -111,4 +111,35 @@ $(document).ready(function () {
             $("#hum5").text("Hum: " + "" + day5hum +"%");
         })
     }
-  };
+  }
+  function getCity() {
+    city = $(".cityInput").val();
+    if (city && cities.includes(city)===false) {
+        saveToLocalStorage();
+        return city;
+    }else if(!city){
+        alert("please enter a valid city");
+    }
+  }
+  function listCities() {
+    $("#cityList").text("");
+    cities.forEach((city) => {
+      $("#cityList").prepend("<tr><td>" + city + "</td></tr>");
+    });
+  }
+
+  listCities();
+//event handler for recently searched cities in table
+  $(document).on("click", "td", (e) => {
+    e.preventDefault();
+    let listedCity = $(e.target).text();
+    city = listedCity;
+    search();
+  });
+//event handler for clear button
+  $("#clr-btn").click(() => {
+    localStorage.removeItem("cities");
+    loadRecentCities();
+    listCities();
+  });
+});
