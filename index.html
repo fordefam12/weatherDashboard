@@ -23,15 +23,44 @@
         <main class="container">
             <figure class="colums">
                 <figure class="column is-one-quarter comtent">
-
                     <form">
                 <input id="cityInput"
                 class="input is-info"
                 type="text"
                 placeholder="enter the name of city"
                 />
+                <button class="submit button is-info" type="submit">
+                    Search weather
+                </button>
                 </form>
+                <aside class="box table-box">
+                    <figure class="table-container">
+                        <table class="cityList table is-bordered">
+                            <tr></tr>
+                        </table>
+                        <button class="clr-btn button is-danger">CLEAR</button>
+                    </figure>
+                </aside>
                 </figure>
+                <main class="column">
+                    <figure class="weather-data" class="columns box content">
+                        <aside class="column current-city-data">
+                            <h2 class="cityName"></h2>
+                            <h4 class="cityCond"></h4>
+                            <h4 class="temp"></h4>
+                            <h4 class="high"></h4>
+                            <h4 class="humidity"></h4>
+                            <h4 class="windSpeed"></h4>
+                            <h4 class="uvIndex"></h4>
+                        </aside>
+                        <main class="container">
+                            <figure class="content">
+                                <h2>5-day forcast</h2>
+                            </figure>
+                        </main>
+                    </figure>
+                </main>
+
             </figure>
         </main>
     </section>
