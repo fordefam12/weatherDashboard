@@ -100,6 +100,27 @@ var currentWeatherSection = function (cityName) {
             var cityLon = response.coord.lon;
             var cityLat = response.coord.lat;
             
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (response) {
+                console.log(response);
+                
+                var futureForcastTitle = $("#future-forcast-title");
+                futureForcastTitle.text("5-Day Forcast")
+
+                for (var i = 1; i <= 5; i++) {
+                    var futureCard = $(".future-card");
+                    futureCard.addClass("future-card-details");
+
+                    var futureDate = $("#future-date-" + i);
+                    date = moment().add(i, "d").format("M/D/YYYY");
+                    futureDate.text(date);
+                    
+                }
+            })
+
         })
     }
 }
