@@ -23,5 +23,11 @@ var searchHistoryList = function (cityname) {
 
 };
 
-
+var currentWeatherSection = function (cityName) {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+    .then(function (response) {
+        return response.json();
+        
+    })
+}
  
