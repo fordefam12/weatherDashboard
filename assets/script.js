@@ -1,4 +1,4 @@
-var apiKey= '0564078f2d64adbcca5196995d0e7688';
+var apiKey='0564078f2d64adbcca5196995d0e7688';
 var savedSearches = [];
 var searchHistoryList = function (cityName) {
     $('.past-search:contains("' + cityName + '")').remove();
@@ -12,15 +12,15 @@ var searchHistoryList = function (cityName) {
 
     var searchHistorycontainerE1 = $("#search-history-container");
     searchHistorycontainerE1.append(searchEntryContainer);
-    if (savedSearches.length > 0){
-        var previousSavedSearches = localStorage.getItem("savedSearches");
+    if (savedSearches.length < 0){
+        var previousSavedSearches = localStorage.getItem("#savedSearches");
         savedSearches = JSON.parse(previousSavedSearches);
     }
     savedSearches.push(cityName);
     localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
 
     $("#search-input").val("");
-
+console.log(searchHistorycontainerE1);
 };
 
 var currentWeatherSection = function (cityName) {
@@ -29,46 +29,47 @@ var currentWeatherSection = function (cityName) {
         return response.json();
 
     })
-    .then(function (response) {
-        var cityLon = response.coord.lon;
-        var cityLat = response.coord.Lat;
-
-        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+    .then(function (data) {
+        console.log(data);
+        var cityLon = data.coord.lon;
+        var cityLat = data.coord.lat;
+console.log(data.coord);
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}`)
         .then(function (response) {
             return response.json();
         })
         .then(function (response) {
+            console.log(response);
             searchHistoryList(cityName);
-            
+            console.log(cityName);
             var currentWeatherContainer = $("#current-weather-container");
             currentWeatherContainer.addClass("current-weather-container");
 
             var currentTitle = $("#current-title");
             var currentDay = moment().format("M/D/YYYY")
-            currentTitle.text('${cityName} (${currentDay})');
+            currentTitle.text(`${cityName} (${currentDay})`);
             var currentIcon = $("#current-weather-icon");
             currentIcon.addClass("current-weather-icon");
-            var currentIconCode = response.current.weather[0].icon;
+            var currentIconCode = response.list[0].weather[0].icon;
             currentIcon.attr("src", `https://openweathermap.org/img/wn/${currentIconCode}@2x.png`);
 
             var currnetTemperature = $("current-tempature");
-            currnetTemperature.text("Temperature: " + response.current.temp + " \u00b0f");
+            currnetTemperature.text("Temperature: " + response.list[0].main.temp + " \u00b0f");
 
             var currentHumidity = $("#current-humidity");
-            currentHumidity.text("humidity: " + response.current.humidity + "%");
+            currentHumidity.text("humidity: " + response.list[0].main.humidity + "%");
             
             var currentWindSpeed = $("#current-wind-speed");
-            currentWindSpeed.text("wind speed: " + response.current.wind_speed + "MPH")
+            currentWindSpeed.text("wind speed: " + response.list[3].wind.speed + "MPH")
 
             var currentUvIndex = $("#current-uv-index");
-            currentUvIndex.text("uv Index: ");
+            currentUvIndex.text("feels like: ");
 
             var currentNumber = $("#current-number");
-            currentNumber.text(response.current.uvi);
-
-            if (response.current.uvi <= 2) {
+            currentNumber.text(response.list[0].main.feels_like);
+            if (response.list[0].main.feels_like <= 350) {
             currentNumber.addClass("favorable");
-        }else if (response.current.uvi >= 3 && response.current.uvi <= 7 ){
+        }else if (response.list[0].main.feels_like >= 400 && response.list[0].main.feels_like <= 700 ){
             currentNumber.addClass("moderate");
         }else {
             currentNumber.addClass("severe");
@@ -102,13 +103,13 @@ var currentWeatherSection = function (cityName) {
             var cityLon = response.coord.lon;
             var cityLat = response.coord.lat;
             
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
-            .then(function (response) {
-                return response.json();
+            fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+            .then(function (response2) {
+                return response2.json();
             })
-            .then(function (response) {
-                console.log(response);
-                
+            .then(function (data2) {
+                console.log(data2);
+                console.log(data2);
                 var futureForcastTitle = $("#future-forcast-title");
                 futureForcastTitle.text("5-Day Forcast")
 
@@ -122,14 +123,14 @@ var currentWeatherSection = function (cityName) {
                     
                     var futureIcon = $ ("#future-Icon-" + i);
                     futureIcon.addClass("future-Icon");
-                    var futureIconCode = response.daily[i].weather[0].icon;
+                    var futureIconCode = data2.list[i].weather[0].icon;
                     futureIcon.attr("src", `https://openweathermap.org/img/wn/${futureIconCode}@2x.png`);
 
                     var futureTemp = $("#future-temp-" + i );
-                    futureTemp.text("temp:" +response.daily[i].temp.day + " \u00B0F");
+                    futureTemp.text("temp:" +data2.list[i].main.temp + " \u00B0F");
 
                     var futureHumidity = $("#future-humidity-" + i);
-                    futureHumidity.text("humidity: " + response.daily[i].humidity + "%");
+                    futureHumidity.text("humidity: " + data2.list[i].main.humidity + "%");
 
                 }
             })
@@ -142,7 +143,7 @@ var currentWeatherSection = function (cityName) {
         var cityName = $('#search-input').val();
         if(cityName ==="" || cityName ==null) {
             alert("please enter city name");
-            event.preventDefault;
+            // event.preventDefault;
         }else currentWeatherSection(cityName);
         fiveDayForcast(cityName);
     })
