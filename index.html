@@ -3,114 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link 
+    rel="stylesheet" 
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" href="./assets/style.css">
     <title>weather dashboard</title>
 </head>
-<header>
-    <h1 class="title">Weather Dashboard</h1>
+<header class="header">
+    <section class="h1-container d-flex translate-middle bg-dark justify-content-center">
+    <h1 class="title h1 text-light">Weather Dashboard</h1>
+</section>
 </header>
-<body>
-    <section class="hero">
-        <figure class="hero-body">
-            <main class="container">
-                <h1 class="title">Weather Dashboard</h1>
-            </main>
+<body class="body">
+    <main class="container">
+    <section class="hero container-fluid">
+        <figure class="hero-body row page-content">
+            <figure class="col-sm-4 bg-light p-0">
+                <figure class="form-container">
+                    <form id="search-form">
+                    <figure class="row m-0">
+                        <label for="search-input" class=" search-label m-0 text-dark">seacrh cities</label>
+                        </figure>
+                        <figure class="m-0 row">
+                            <div class="col-sm-8 p-0 my-auto">
+                                <input type="text" id="search-input" name="search-input" class="search-input rounded">
+                            </div>
+                            <span class="col-sm-4 p-0">
+                                <button type="submit" class="btn bg-primary rounded search-button">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </figure>
+                    </form>
+                </figure>
+
+                <aside id="search-history-container" class="row m-0 search-history-container">
+
+                </aside>
+            </figure>
+            <section class="col-sm-8 p-0">
+                <article id="current-weather-container" class="row d-block">
+                    <figure class="current-title-container">
+                        <h2 id="current-title" class="current-title d-inline"></h2>
+                        <img id="current-weather-icon" class="d-inline" src="" alt="">
+
+                    </figure>
+                    <p class="current-temperature" id="current-temperature"></p>
+                    <p class="current-humidity" id="current-humidity"></p>
+                    <p class="current-wind-speed" id="current-wind-speed"></p>
+                    <p class="current-uv-index" id="current-uv-index"></p>
+                    <p class="current-number rounded" id="current-number"></p>
+                </article>
+                <figure class="row future-forcast-container d-block">
+                    <h2 class="future-forcast-title" id=" future-forcast-title"></h2>
+                    <section id="forcasts-cards-container" class="forcasts-cards-container d-flex justify-content-between">
+                        <figure class="future-card bg-primary rounded">
+                            <p class="future-date" id="future-date-1"></p>
+                            <img class="future-icon-1" src="" alt="">
+                            <p class="future-temp" id="future-temp-1"></p>
+                            <p class="future-humidity" id="future-humidity-1"></p>
+                        </figure>
+                        <figure class="future-card bg-primary rounded">
+                            <p class="future-date" id="future-date-2"></p>
+                            <img class="future-icon-2" src="" alt="">
+                            <p class="future-temp" id="future-temp-2"></p>
+                            <p class="future-humidity" id="future-humidity-2"></p>
+
+                        </figure>
+                        <figure class="future-card bg-primary rounded">
+                            <p class="future-date" id="future-date-3"></p>
+                            <img class="future-icon-3" src="" alt="">
+                            <p class="future-temp" id="future-temp-3"></p>
+                            <p class="future-humidity" id="future-humidity-3"></p>
+
+                        </figure>
+                        <figure class="future-card bg-primary rounded">
+                            <p class="future-date" id="future-date-4"></p>
+                            <img class="future-icon-4" src="" alt="">
+                            <p class="future-temp" id="future-temp-4"></p>
+                            <p class="future-humidity" id="future-humidity-4"></p>
+
+                        </figure>
+                        <figure class="future-card bg-primary rounded">
+                            <p class="future-date" id="future-date-5"></p>
+                            <img class="future-icon-5" src="" alt="">
+                            <p class="future-temp" id="future-temp-5"></p>
+                            <p class="future-humidity" id="future-humidity-5"></p>
+
+                        </figure>
+                    </section>
+                </figure>
+            </section>
         </figure>
     </section>
+    </main>
 
-
-    <section class="infoSection">
-        <main class="container">
-            <figure class="colums">
-                <figure class="column is-one-quarter comtent">
-                    <form">
-                <input id="cityInput"
-                class="input is-info"
-                type="text"
-                placeholder="enter the name of city"
-                />
-                <button class="submit button is-info" type="submit">
-                    Search weather
-                </button>
-                </form>
-                <aside class="box table-box">
-                    <figure class="table-container">
-                        <table class="cityList table is-bordered">
-                            <tr></tr>
-                        </table>
-                        <button class="clr-btn button is-danger">CLEAR</button>
-                    </figure>
-                </aside>
-                </figure>
-                <main class="column">
-                    <figure class="weather-data" class="columns box content">
-                        <aside class="column current-city-data">
-                            <h2 class="cityName"></h2>
-                            <h4 class="cityCond"></h4>
-                            <h4 class="temp"></h4>
-                            <h4 class="high"></h4>
-                            <h4 class="humidity"></h4>
-                            <h4 class="windSpeed"></h4>
-                            <h4 class="uvIndex"></h4>
-                        </aside>
-                        <main class="container">
-                            <figure class="content">
-                                <h2>5-day forcast</h2>
-                                <figure class="columns">
-                                    <section class="column card">
-                                        <span id="day1" class="cardContent">
-                                            <h3 id="date1" class="has-text-white"></h3>
-                                            <p id="icon1"></p>
-                                            <h4 id="temp1" class="has-text-white"></h4>
-                                            <h4 id="hum1" class="has-text-white"></h4>
-                                        </span>
-                                    </section>
-                                    <section class="column card">
-                                        <span id="day2" class="cardContent">
-                                            <h3 id="date2" class="has-text-white"></h3>
-                                            <p id="icon2"></p>
-                                            <h4 id="temp2" class="has-text-white"></h4>
-                                            <h4 id="hum2" class="has-text-white"></h4>
-                                        </span>
-                                    </section>
-                                    <section class="column card">
-                                        <span id="day3" class="cardContent">
-                                            <h3 id="date3" class="has-text-white"></h3>
-                                            <p id="icon3"></p>
-                                            <h4 id="temp3" class="has-text-white"></h4>
-                                            <h4 id="hum3" class="has-text-white"></h4>
-                                        </span>
-                                    </section>
-                                    <section class="column card">
-                                        <span id="day4" class="cardContent">
-                                            <h3 id="date4" class="has-text-white"></h3>
-                                            <p id="icon4"></p>
-                                            <h4 id="temp4" class="has-text-white"></h4>
-                                            <h4 id="hum4" class="has-text-white"></h4>
-                                        </span>
-                                    </section>
-                                    <section class="column card">
-                                        <span id="day5" class="cardContent">
-                                            <h3 id="date5" class="has-text-white"></h3>
-                                            <p id="icon5"></p>
-                                            <h4 id="temp5" class="has-text-white"></h4>
-                                            <h4 id="hum5" class="has-text-white"></h4>
-                                        </span>
-                                    </section>
-                                </figure>
-                            </figure>
-                        </main>
-                    </figure>
-                </main>
-
-            </figure>
-        </main>
-    </section>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="./Assets/js/script.js"></script>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
-<script
-      type="text/javascript"
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"
-    ></script>
-    <script src="./assets/script.js"></script>
 </html>
