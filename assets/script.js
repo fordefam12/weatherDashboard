@@ -1,6 +1,6 @@
-var APIKey= "4910a1ed2efe6e5a111856cd7c08b4de";
-var savevdSearches = [];
-var searchHistoryList = function (cityname) {
+var apiKey= '0564078f2d64adbcca5196995d0e7688';
+var savedSearches = [];
+var searchHistoryList = function (cityName) {
     $('.past-search:contains("' + cityName + '")').remove();
     var searchHistoryEntry = $("<p>");
     searchHistoryEntry.addClass("past-search");
@@ -12,7 +12,7 @@ var searchHistoryList = function (cityname) {
 
     var searchHistorycontainerE1 = $("#search-history-container");
     searchHistorycontainerE1.append(searchEntryContainer);
-    if (savevdSearches.length > 0){
+    if (savedSearches.length > 0){
         var previousSavedSearches = localStorage.getItem("savedSearches");
         savedSearches = JSON.parse(previousSavedSearches);
     }
@@ -31,7 +31,7 @@ var currentWeatherSection = function (cityName) {
     })
     .then(function (response) {
         var cityLon = response.coord.lon;
-        var cityLat = response.coord.cityLat;
+        var cityLat = response.coord.Lat;
 
         fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
         .then(function (response) {
@@ -40,12 +40,12 @@ var currentWeatherSection = function (cityName) {
         .then(function (response) {
             searchHistoryList(cityName);
             
-            var currentWeatherContainer = $("#current-weatehr-container");
-            currentWeatherContainer.addClass("current-weqatehr-container");
+            var currentWeatherContainer = $("#current-weather-container");
+            currentWeatherContainer.addClass("current-weather-container");
 
             var currentTitle = $("#current-title");
             var currentDay = moment().format("M/D/YYYY")
-            currentTitle.text('$cityName) (${currentDay})');
+            currentTitle.text('${cityName} (${currentDay})');
             var currentIcon = $("#current-weather-icon");
             currentIcon.addClass("current-weather-icon");
             var currentIconCode = response.current.weather[0].icon;
@@ -73,13 +73,15 @@ var currentWeatherSection = function (cityName) {
         }else {
             currentNumber.addClass("severe");
         }
+        console.log(cityName);
         })
     })
-    .catch(function (err) {
+    .catch(function (error) {
         $("#search-input").val("");
         alert("city not found, try again");
 
     });
+}
     var loadSearchHistory = function () {
         var savevdSearchHistory = localStorage.getItem("savedSearches");
         if (!savevdSearchHistory) {
@@ -120,7 +122,7 @@ var currentWeatherSection = function (cityName) {
                     
                     var futureIcon = $ ("#future-Icon-" + i);
                     futureIcon.addClass("future-Icon");
-                    var futureIconCode = response.daily[i].weatehr[0].icon;
+                    var futureIconCode = response.daily[i].weather[0].icon;
                     futureIcon.attr("src", `https://openweathermap.org/img/wn/${futureIconCode}@2x.png`);
 
                     var futureTemp = $("#future-temp-" + i );
@@ -144,6 +146,14 @@ var currentWeatherSection = function (cityName) {
         }else currentWeatherSection(cityName);
         fiveDayForcast(cityName);
     })
-    
-}
+    $("#search-history-container").on("click", "p", function () {
+      var previousCityName = $(this).text();
+      currentWeatherSection(previousCityName);
+      fiveDayForcast(previousCityName);
+      
+      var previousCityClicked = $(this);
+      previousCityClicked.remove();
+    })
+    loadSearchHistory();
+
  

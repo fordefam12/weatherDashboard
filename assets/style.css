@@ -6,38 +6,38 @@
 
 .h1-container{
 padding: 4px;
-border: 1px solid red;
+/* border: 1px solid red; */
 }
 
 .form-container {
     padding: 10px;
-    background-color: blue;
-    border: 1px solid red;
+    background-color: rgb(250, 227, 99);
+    /* border: 1px solid red; */
 }
 
 .search-label {
     font-size: 20px;
     font-weight: 600;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .search-input {
     width: 100%;
     height: 40px;
-    border-color: lightblue;
+    border-color: rgb(6, 112, 148);
     border-width: thin;
     padding: 0 15px;
 }
 
 .search-button {
     padding: 10px 15px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .search-history-container {
-    background-color: blueviolet;
+    background-color: rgb(158, 238, 127);
    padding: 10px;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 
 .past-search {
@@ -53,10 +53,10 @@ border: 1px solid red;
     line-height: 45px;
     padding: 0 20px;
     color: grey;
-    border: 1px solid red;
+    /* border: 1px solid red; */
 }
 .current-weather-container {
-    border-color: lightgrey;
+    border-color: rgb(161, 4, 4);
     border-width: thin 0 thin thin;
     border-style: solid;
     border-radius: 3px;
@@ -126,9 +126,9 @@ display: flex;
     font-weight: 200;
 }
 
-.submit {
+input {
     width: 100%;
-    margin-bottom: 20px;
+   margin-bottom: 20px;
     border: 1px solid red;
 }
 
@@ -137,8 +137,5 @@ display: flex;
         margin: 2px;
         padding: 0 20px 0 20px;
     }
-    .cardConetent {
-        padding: 20px;
-        border: 1px solid red;
-    }
+    
 }
