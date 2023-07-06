@@ -118,10 +118,22 @@ var currentWeatherSection = function (cityName) {
                     date = moment().add(i, "d").format("M/D/YYYY");
                     futureDate.text(date);
                     
+                    var futureIcon = $ ("#future-Icon-" + i);
+                    futureIcon.addClass("future-Icon");
+                    var futureIconCode = response.daily[i].weatehr[0].icon;
+                    futureIcon.attr("src", `https://openweathermap.org/img/wn/${futureIconCode}@2x.png`);
+
+                    var futureTemp = $("#future-temp-" + i );
+                    futureTemp.text("temp:" +response.daily[i].temp.day + " \u00B0F");
+
+                    var futureHumidity = $("#future-humidity-" + i);
+                    futureHumidity.text("humidity: " + response.daily[i].humidity + "%");
+
                 }
             })
 
         })
-    }
+    };
+    
 }
  
