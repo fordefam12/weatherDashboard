@@ -27,7 +27,53 @@ var currentWeatherSection = function (cityName) {
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
     .then(function (response) {
         return response.json();
-        
+
+    })
+    .then(function (response) {
+        var cityLon = response.coord.lon;
+        var cityLat = response.coord.cityLat;
+
+        fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (response) {
+            searchHistoryList(cityName);
+            
+            var currentWeatherContainer = $("#current-weatehr-container");
+            currentWeatherContainer.addClass("current-weqatehr-container");
+
+            var currentTitle = $("#current-title");
+            var currentDay = moment().format("M/D/YYYY")
+            currentTitle.text('$cityName) (${currentDay})');
+            var currentIcon = $("#current-weather-icon");
+            currentIcon.addClass("current-weather-icon");
+            var currentIconCode = response.current.weather[0].icon;
+            currentIcon.attr("src", `https://openweathermap.org/img/wn/${currentIconCode}@2x.png`);
+
+            var currnetTemperature = $("current-tempature");
+            currnetTemperature.text("Temperature: " + response.current.temp + " \u00b0f");
+
+            var currentHumidity = $("#current-humidity");
+            currentHumidity.text("humidity: " + response.current.humidity + "%");
+            
+            var currentWindSpeed = $("#current-wind-speed");
+            currentWindSpeed.text("wind speed: " + response.current.wind_speed + "MPH")
+
+            var currentUvIndex = $("#current-uv-index");
+            currentUvIndex.text("uv Index: ");
+
+            var currentNumber = $("#current-number");
+            currentNumber.text(response.current.uvi);
+
+            if (response.current.uvi <= 2) {
+            currentNumber.addClass("favorable");
+        }else if (response.current.uvi >= 3 && response.current.uvi <= 7 ){
+            currentNumber.addClass("moderate");
+        }else {
+            currentNumber.addClass("severe");
+        }
+        })
     })
 }
  
