@@ -134,6 +134,16 @@ var currentWeatherSection = function (cityName) {
 
         })
     };
+    $("#search-form").on("submit", function (event) {
+        event.preventDefault();
+
+        var cityName = $('#search-input').val();
+        if(cityName ==="" || cityName ==null) {
+            alert("please enter city name");
+            event.preventDefault;
+        }else currentWeatherSection(cityName);
+        fiveDayForcast(cityName);
+    })
     
 }
  
