@@ -75,5 +75,32 @@ var currentWeatherSection = function (cityName) {
         }
         })
     })
+    .catch(function (err) {
+        $("#search-input").val("");
+        alert("city not found, try again");
+
+    });
+    var loadSearchHistory = function () {
+        var savevdSearchHistory = localStorage.getItem("savedSearches");
+        if (!savevdSearchHistory) {
+            return false;
+        }
+        savevdSearchHistory = JSON.parse(savevdSearchHistory);
+        for (let i = 0; i < savevdSearchHistory.length; i++) {
+            searchHistoryList(savevdSearchHistory[i]);
+            
+        }
+    };
+    var fiveDayForcast = function(cityName) {
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+        .then(function (response) {
+            return response.json();           
+        })
+        .then(function (response) {
+            var cityLon = response.coord.lon;
+            var cityLat = response.coord.lat;
+            
+        })
+    }
 }
  
