@@ -20,7 +20,7 @@ var searchHistoryList = function (cityName) {
     localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
 
     $("#search-input").val("");
-console.log(searchHistorycontainerE1);
+
 };
 
 var currentWeatherSection = function (cityName) {
@@ -30,11 +30,11 @@ var currentWeatherSection = function (cityName) {
 
     })
     .then(function (data) {
-        console.log(data);
+        
         var cityLon = data.coord.lon;
         var cityLat = data.coord.lat;
-console.log(data.coord);
-        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&appid=${apiKey}`)
+console.log(data);
+        fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=imperial&appid=${apiKey}`)
         .then(function (response) {
             return response.json();
         })
@@ -57,19 +57,19 @@ console.log(data.coord);
             currnetTemperature.text("Temperature: " + response.list[0].main.temp + " \u00b0f");
 
             var currentHumidity = $("#current-humidity");
-            currentHumidity.text("humidity: " + response.list[0].main.humidity + "%");
+            currentHumidity.text("Humidity: " + response.list[0].main.humidity + "%");
             
             var currentWindSpeed = $("#current-wind-speed");
-            currentWindSpeed.text("wind speed: " + response.list[3].wind.speed + "MPH")
+            currentWindSpeed.text("Wind speed: " + response.list[3].wind.speed + "MPH")
 
-            var currentUvIndex = $("#current-uv-index");
-            currentUvIndex.text("feels like: ");
+            var currentHumidity = $("#current-uv-index");
+            currentHumidity.text("Tempature: ");
 
             var currentNumber = $("#current-number");
-            currentNumber.text(response.list[0].main.feels_like);
-            if (response.list[0].main.feels_like <= 350) {
+            currentNumber.text(response.list[0].main.temp + "%");
+            if (response.list[0].main.temp <= 350) {
             currentNumber.addClass("favorable");
-        }else if (response.list[0].main.feels_like >= 400 && response.list[0].main.feels_like <= 700 ){
+        }else if (response.list[0].main.temp >= 400 && response.list[0].main.temp <= 700 ){
             currentNumber.addClass("moderate");
         }else {
             currentNumber.addClass("severe");
@@ -83,17 +83,47 @@ console.log(data.coord);
 
     });
 }
-    var loadSearchHistory = function () {
-        var savevdSearchHistory = localStorage.getItem("savedSearches");
-        if (!savevdSearchHistory) {
-            return false;
+var savedSearches = [];
+
+var searchHistoryList = function (cityName) {
+    $('.past-search:contains("' + cityName + '")').remove();
+    var searchHistoryEntry = $("<p>");
+    searchHistoryEntry.addClass("past-search");
+    searchHistoryEntry.text(cityName);
+
+    var searchHistorycontainerE1 = $("#search-history-container"); // Corrected variable name
+
+    searchHistorycontainerE1.append(searchHistoryEntry); // Append the entry directly
+
+    // ... rest of the function
+};
+
+var loadSearchHistory = function () {
+    var savedSearchHistory = localStorage.getItem("savedSearches");
+    if (savedSearchHistory) {
+        savedSearches = JSON.parse(savedSearchHistory);
+        for (let i = 0; i < savedSearches.length; i++) {
+            searchHistoryList(savedSearches[i]);
         }
-        savevdSearchHistory = JSON.parse(savevdSearchHistory);
-        for (let i = 0; i < savevdSearchHistory.length; i++) {
-            searchHistoryList(savevdSearchHistory[i]);
-            
-        }
-    };
+    }
+};
+
+$("#search-form").on("submit", function (event) {
+    event.preventDefault();
+
+    var cityName = $('#search-input').val();
+    if (cityName === "" || cityName == null) {
+        alert("Please enter a city name");
+    } else {
+        currentWeatherSection(cityName);
+        fiveDayForcast(cityName);
+    }
+    searchHistoryList(cityName); // Save the search history on every search
+    fiveDayForcast(cityName);
+});
+
+loadSearchHistory(); // Load search history when the page loads
+
     var fiveDayForcast = function(cityName) {
         fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
         .then(function (response) {
@@ -109,7 +139,7 @@ console.log(data.coord);
             })
             .then(function (data2) {
                 console.log(data2);
-                console.log(data2);
+                
                 var futureForcastTitle = $("#future-forcast-title");
                 futureForcastTitle.text("5-Day Forcast")
 

@@ -4,6 +4,15 @@
     box-sizing: border-box;
 }
 
+body {
+    background-image: url('./Wdbackground.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* Your existing CSS styles here */
+
 .h1-container{
 padding: 4px;
 /* border: 1px solid red; */
@@ -56,6 +65,7 @@ padding: 4px;
     /* border: 1px solid red; */
 }
 .current-weather-container {
+    background-image: url('./UBIMET_Loesungen_Wetter_Cockpit-1030x391.png');
     border-color: rgb(161, 4, 4);
     border-width: thin 0 thin thin;
     border-style: solid;
