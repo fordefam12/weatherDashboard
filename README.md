@@ -59,7 +59,7 @@ Any questions about this project please send me a message on *https://github.com
 ## URL
   
 <p align='center'>
-<a href='https://fordefam12.github.io/code-quiz/'>
+<a href='https://fordefam12.github.io/weatherDashboard/'>
 CLICK QR CODE for deploy link
 // <img src='./qr-code (15).png' width="25%"></a>
 </p>
